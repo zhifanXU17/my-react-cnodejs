@@ -1,9 +1,10 @@
-import { useState } from 'react';
-import useSWR from 'swr';
+import { useEffect, useState } from 'react';
+import useSWRInfinite from 'swr/infinite';
 
 import PostingLink from '../components/PostingLink';
 
 const ENTPOINT = 'https://cnodejs.org/api/v1/topics';
+const PAGE_SIZE = 20;
 
 async function fetcher(endpoint) {
   const response = await fetch(endpoint);
@@ -14,29 +15,16 @@ async function fetcher(endpoint) {
 
 function PostingList() {
   const [key, setKey] = useState('');
-  let content = null;
+  const { data, size, setSize, isLoading, error } =
+    useSWRInfinite(
+      (index) =>
+        `${ENTPOINT}?page=${
+          index + 1
+        }&limit=${PAGE_SIZE}&tab=${key}`,
+      fetcher
+    );
 
-  let endpoint = '';
-  if (key === '') {
-    endpoint = `${ENTPOINT}?limit=20`;
-  } else {
-    endpoint = `${ENTPOINT}?limit=20&tab=${key}`;
-  }
-  const { data, isLoading, error } = useSWR(
-    endpoint,
-    fetcher
-  );
-
-  console.log(data);
-
-  const handleChangeKey = (param) => {
-    if (key === param) {
-      return;
-    }
-
-    setKey(param);
-  };
-
+  let content;
   if (isLoading) {
     content = (
       <div className='flex flex-col gap-4'>
@@ -55,9 +43,17 @@ function PostingList() {
   }
 
   if (data) {
+    let list = [];
+    const formatData = (result) => {
+      result.forEach((item) => {
+        list = list.concat(item.data);
+      });
+    };
+    formatData(data);
+
     content = (
       <ul>
-        {data.data.map((item) => (
+        {list.map((item) => (
           <PostingLink
             key={item.id}
             avatar={item.author.avatar_url}
@@ -72,6 +68,34 @@ function PostingList() {
       </ul>
     );
   }
+
+  const handleChangeKey = (param) => {
+    if (key === param) {
+      return;
+    }
+
+    setKey(param);
+  };
+
+  useEffect(() => {
+    const handleScrollFetch = () => {
+      if (
+        document.documentElement.clientHeight +
+          document.documentElement.scrollTop >=
+        document.documentElement.scrollHeight
+      ) {
+        setSize(size + 1);
+      }
+    };
+    document.addEventListener('scroll', handleScrollFetch);
+
+    return () => {
+      document.removeEventListener(
+        'scroll',
+        handleScrollFetch
+      );
+    };
+  }, [size, setSize]);
 
   return (
     <div className='max-w-4xl mx-auto p-5 shadow-xl'>
