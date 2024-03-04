@@ -3,22 +3,16 @@ import useSWRInfinite from 'swr/infinite';
 
 import PostingLink from '../components/PostingLink';
 
-const ENTPOINT = 'https://cnodejs.org/api/v1/topics';
+import { ENDPOINT, fetcher } from '../utils/helpers';
+
 const PAGE_SIZE = 20;
-
-async function fetcher(endpoint) {
-  const response = await fetch(endpoint);
-  const json = await response.json();
-
-  return json;
-}
 
 function PostingList() {
   const [key, setKey] = useState('');
   const { data, size, setSize, isLoading, error } =
     useSWRInfinite(
       (index) =>
-        `${ENTPOINT}?page=${
+        `${ENDPOINT}/topics/?page=${
           index + 1
         }&limit=${PAGE_SIZE}&tab=${key}`,
       fetcher

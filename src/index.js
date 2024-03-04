@@ -11,6 +11,12 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 
+import * as dayjs from 'dayjs';
+import 'dayjs/locale/zh-cn';
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.locale('zh-cn');
+dayjs.extend(relativeTime);
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -20,11 +26,11 @@ const router = createBrowserRouter([
         index: true,
         element: <PostingList />,
       },
+      {
+        path: 'posting/:postingId',
+        element: <Posting />,
+      },
     ],
-  },
-  {
-    path: 'posting/:postingId',
-    element: <Posting />,
   },
 ]);
 

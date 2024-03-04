@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 
 import * as dayjs from 'dayjs';
-import 'dayjs/locale/zh-cn';
-import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.locale('zh-cn');
-dayjs.extend(relativeTime);
 
 function PostingLink({
   avatar,
