@@ -17,7 +17,7 @@ export default function Root() {
           关于
         </span>
       </header>
-      <main className='py-10'>
+      <main className='py-10 bg-mainBg h-fit min-h-full'>
         <Outlet />
       </main>
     </div>

@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       colors: {
         defaultBg: 'rgb(68, 68, 68)',
+        mainBg: '#e1e1e1',
         link: 'rgb(66, 185, 131)',
       },
     },

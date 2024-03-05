@@ -7,6 +7,8 @@ import {
 import { useParams } from 'react-router-dom';
 
 import ReplyList from '../components/ReplyList';
+import Aside from '../components/Aside';
+import AuthorCard from '../components/AuthorCard';
 
 import * as dayjs from 'dayjs';
 
@@ -67,46 +69,50 @@ function Posting() {
     console.log(postingDetail);
 
     content = (
-      <article className='max-w-4xl mx-auto p-5 shadow-xl'>
-        <header className='border-b border-b-gray-300 pb-6'>
-          <h2 className='text-2xl font-bold mb-2'>
-            {postingDetail.title}
-          </h2>
-          <div className='flex gap-2 text-xs text-gray-400'>
-            <span>
-              {dayjs(postingDetail.create_at).fromNow()}
-            </span>
-            •<span>作者:</span>
-            <span className='text-link hover:text-blue-400 hover:cursor-pointer'>
-              {postingDetail.author.loginname}
-            </span>
-            •<span>{postingDetail.visit_count}次浏览</span>{' '}
-            •<span>来自:</span>
-            <span>分享</span>
-          </div>
-        </header>
+      <>
+        <article className='flex-1 p-5 card bg-base-100'>
+          <header className='border-b border-b-gray-300 pb-6'>
+            <h2 className='card-title mb-2'>
+              {postingDetail.title}
+            </h2>
+            <div className='flex gap-2 text-xs text-gray-400'>
+              <span>
+                {dayjs(postingDetail.create_at).fromNow()}
+              </span>
+              •<span>作者:</span>
+              <span className='text-link hover:text-blue-400 hover:cursor-pointer'>
+                {postingDetail.author.loginname}
+              </span>
+              •
+              <span>{postingDetail.visit_count}次浏览</span>{' '}
+              •<span>来自:</span>
+              <span>分享</span>
+            </div>
+          </header>
 
-        <section className='py-6'>
-          <div
-            dangerouslySetInnerHTML={renderMarkdownToHTML(
-              postingDetail.content
-            )}
+          <section className='py-6'>
+            <div
+              dangerouslySetInnerHTML={renderMarkdownToHTML(
+                postingDetail.content
+              )}
+            />
+          </section>
+
+          <ReplyList
+            replies={postingDetail.replies}
+            replyCount={postingDetail.reply_count}
           />
-          {/* <Markdown rehypePlugins={rehypeRaw}>
-            {postingDetail.content}
-          </Markdown> */}
-        </section>
+        </article>
 
-        <ReplyList
-          replies={postingDetail.replies}
-          replyCount={postingDetail.reply_count}
-        />
-      </article>
+        <Aside loginName={postingDetail.author.loginname} />
+      </>
     );
   }
 
   return (
-    <div className='max-w-4xl mx-auto p-5'>{content}</div>
+    <div className='flex justify-between gap-4 max-w-7xl mx-auto px-5'>
+      {content}
+    </div>
   );
 }
 

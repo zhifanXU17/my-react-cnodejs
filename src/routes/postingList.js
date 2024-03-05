@@ -92,7 +92,7 @@ function PostingList() {
   }, [size, setSize]);
 
   return (
-    <div className='max-w-4xl mx-auto p-5 shadow-xl'>
+    <div className='max-w-6xl h-full card bg-base-100 mx-auto p-5'>
       <ul
         role='tablist'
         className='tabs tabs-bordered mb-4'
