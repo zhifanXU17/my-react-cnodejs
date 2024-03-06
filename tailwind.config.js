@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         defaultBg: 'rgb(68, 68, 68)',
         mainBg: '#e1e1e1',
+        backdrop: 'hsl(0deg 0% 0% / 0.75)',
         link: 'rgb(66, 185, 131)',
       },
     },

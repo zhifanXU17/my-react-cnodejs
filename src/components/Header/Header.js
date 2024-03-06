@@ -25,6 +25,12 @@ function Header() {
           </span>
         </Link>
 
+        <Link to={'/getStart'}>
+          <span className='text-gray-200 hover:text-white hover:cursor-pointer'>
+            新手入门
+          </span>
+        </Link>
+
         <span className='text-gray-200 hover:text-white hover:cursor-pointer'>
           关于
         </span>

@@ -8,7 +8,6 @@ import { useParams } from 'react-router-dom';
 
 import ReplyList from '../components/ReplyList';
 import Aside from '../components/Aside';
-import AuthorCard from '../components/AuthorCard';
 
 import * as dayjs from 'dayjs';
 

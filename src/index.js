@@ -5,6 +5,7 @@ import './index.css';
 import Root from './routes/root';
 import PostingList from './routes/postingList';
 import Posting from './routes/posting';
+import GetStart from './routes/getStart';
 
 import {
   createBrowserRouter,
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: 'posting/:postingId',
         element: <Posting />,
+      },
+      {
+        path: '/getStart',
+        element: <GetStart />,
       },
     ],
   },

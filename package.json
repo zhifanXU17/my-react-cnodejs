@@ -13,6 +13,8 @@
     "new-component": "^5.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-focus-lock": "^2.11.2",
+    "react-remove-scroll": "^2.5.7",
     "react-router-dom": "^6.22.2",
     "react-scripts": "5.0.1",
     "sort-by": "^1.2.0",
