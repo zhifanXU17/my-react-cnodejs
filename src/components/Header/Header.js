@@ -5,7 +5,7 @@ import logo from '../../assets/images/cnodejsLogo.svg';
 
 function Header() {
   return (
-    <header className='h-16 bg-defaultBg'>
+    <header className='h-16 bg-current'>
       <nav className='h-full max-w-6xl mx-auto flex items-center justify-between gap-4'>
         <div className='flex-1 flex gap-4'>
           <Link to={'/'}>

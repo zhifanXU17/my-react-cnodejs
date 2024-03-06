@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from 'react';
 function SearchBar() {
   const [keyword, setKeyword] = useState('');
   const inputRef = useRef(null);
-  const isShowRef = useRef(false);
 
   useEffect(() => {
     function handleFocusSearch(event) {
@@ -23,39 +22,7 @@ function SearchBar() {
         handleFocusSearch
       );
     };
-  });
-
-  useEffect(() => {
-    function handleInputFocus() {
-      isShowRef.current = true;
-    }
-
-    function handleInputBlur() {
-      isShowRef.current = false;
-    }
-
-    const element = inputRef;
-    element.current.addEventListener(
-      'focus',
-      handleInputFocus
-    );
-    element.current.addEventListener(
-      'blur',
-      handleInputBlur
-    );
-
-    return () => {
-      element.current.removeEventListener(
-        'focus',
-        handleInputFocus
-      );
-
-      element.current.removeEventListener(
-        'blur',
-        handleInputBlur
-      );
-    };
-  });
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -95,7 +62,7 @@ function SearchBar() {
         />
         <kbd className='kbd kbd-sm'>⌘</kbd>
         <kbd className='kbd kbd-sm'>K</kbd>
-        {isShowRef.current === true && (
+        {keyword !== '' && (
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
